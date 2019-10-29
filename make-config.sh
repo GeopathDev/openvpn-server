@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 name=$1
+ovpn_client_file_name=$2
 
 if [ "$name" = "" ]; then
   echo "Usage: make-config.sh name"
@@ -10,8 +11,6 @@ fi
 KEY_DIR=$HOME/openvpn-ca/keys
 OUTPUT_DIR=$HOME/client-configs/files
 BASE_CONFIG=$HOME/client-configs/base.conf
-
-echo "${OUTPUT_DIR}"/"${OVPN_FILE_NAME}".ovpn
 
 cat ${BASE_CONFIG} \
     <(echo -e '<ca>') \
@@ -23,6 +22,6 @@ cat ${BASE_CONFIG} \
     <(echo -e '</key>\n<tls-auth>') \
     ${KEY_DIR}/ta.key \
     <(echo -e '</tls-auth>') \
-    > "${OUTPUT_DIR}"/"${OVPN_FILE_NAME}".ovpn
+    > "${OUTPUT_DIR}"/"${ovpn_client_file_name}".ovpn
 
 # sed -i "s/group nogroup/group nobody/" ${OUTPUT_DIR}/${name}.ovpn

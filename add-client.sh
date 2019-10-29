@@ -5,6 +5,7 @@ sd=`dirname $0`
 cd $sd
 
 name=$1
+ovpn_client_file_name=$2
 
 if [ "$name" = "" ]; then
   echo "Usage: add-client.sh name"
@@ -15,4 +16,4 @@ fi
 $sd/generate-client-certificate.sh $name
 
 # Make config
-$sd/make-config.sh $name
+$sd/make-config.sh $name $ovpn_client_file_name
