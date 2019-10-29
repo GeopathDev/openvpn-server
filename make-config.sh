@@ -11,6 +11,8 @@ KEY_DIR=$HOME/openvpn-ca/keys
 OUTPUT_DIR=$HOME/client-configs/files
 BASE_CONFIG=$HOME/client-configs/base.conf
 
+echo "${OUTPUT_DIR}"/"${OVPN_FILE_NAME}".ovpn
+
 cat ${BASE_CONFIG} \
     <(echo -e '<ca>') \
     ${KEY_DIR}/ca.crt \
