@@ -18,7 +18,7 @@ source ./config.sh
 source ./interfaces.sh
 
 # Install OpenVPN and expect
-yes 'yes' | apt install -y openvpn easy-rsa expect iptables-persistent
+apt install -y openvpn easy-rsa expect
 
 # Set up the CA directory
 make-cadir $HOME/openvpn-ca
@@ -63,6 +63,7 @@ sysctl -p
 # Install iptables-persistent so that rules can persist across reboots
 echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
 echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
+apt-get -y install iptables-persistent
 
 # Edit iptables rules to allow for forwarding
 iptables -t nat -A POSTROUTING -o tun+ -j MASQUERADE
