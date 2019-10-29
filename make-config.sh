@@ -10,6 +10,7 @@ fi
 KEY_DIR=$HOME/openvpn-ca/keys
 OUTPUT_DIR=$HOME/client-configs/files
 BASE_CONFIG=$HOME/client-configs/base.conf
+OUTPUT_FILE=$OVPN_FILE_NAME
 
 cat ${BASE_CONFIG} \
     <(echo -e '<ca>') \
@@ -21,6 +22,6 @@ cat ${BASE_CONFIG} \
     <(echo -e '</key>\n<tls-auth>') \
     ${KEY_DIR}/ta.key \
     <(echo -e '</tls-auth>') \
-    > ${OUTPUT_DIR}/Intermx\ Corporate\ VPN.ovpn
+    > ${OUTPUT_DIR}/{$OUTPUT_FILE}.ovpn
 
 # sed -i "s/group nogroup/group nobody/" ${OUTPUT_DIR}/${name}.ovpn
