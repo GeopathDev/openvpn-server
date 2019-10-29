@@ -54,7 +54,8 @@ sed -i "s/;cipher AES-128-CBC/cipher AES-128-CBC\nauth SHA256/" /etc/openvpn/ser
 sed -i "s/;user nobody/user nobody/" /etc/openvpn/server.conf
 sed -i "s/;group nogroup/group nogroup/" /etc/openvpn/server.conf
 sed -i "s/comp-lzo/compress lzo/" /etc/openvpn/server.conf
-echo "\nplugin /usr/lib/openvpn/plugins/openvpn-plugin-auth-pam.so login" >> /etc/openvpn/server.conf
+echo "" >> /etc/openvpn/server.conf
+echo "plugin /usr/lib/openvpn/plugins/openvpn-plugin-auth-pam.so login" >> /etc/openvpn/server.conf
 
 # Allow IP forwarding
 sed -i "s/#net.ipv4.ip_forward/net.ipv4.ip_forward/" /etc/sysctl.conf
