@@ -18,7 +18,7 @@ source ./config.sh
 source ./interfaces.sh
 
 # Install OpenVPN and expect
-apt-get -y install openvpn easy-rsa expect
+apt -y install openvpn easy-rsa expect iptables-persistent
 
 # Set up the CA directory
 make-cadir $HOME/openvpn-ca
@@ -54,7 +54,7 @@ sed -i "s/;cipher AES-128-CBC/cipher AES-128-CBC\nauth SHA256/" /etc/openvpn/ser
 sed -i "s/;user nobody/user nobody/" /etc/openvpn/server.conf
 sed -i "s/;group nogroup/group nogroup/" /etc/openvpn/server.conf
 sed -i "s/comp-lzo/compress lzo/" /etc/openvpn/server.conf
-echo "plugin /usr/lib/openvpn/openvpn-plugin-auth-pam.so" >> /etc/openvpn/server.conf
+echo "plugin /usr/lib/openvpn/plugins/openvpn-plugin-auth-pam.so login" >> /etc/openvpn/server.conf
 
 # Allow IP forwarding
 sed -i "s/#net.ipv4.ip_forward/net.ipv4.ip_forward/" /etc/sysctl.conf
@@ -63,7 +63,6 @@ sysctl -p
 # Install iptables-persistent so that rules can persist across reboots
 echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
 echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
-apt-get install -y iptables-persistent
 
 # Edit iptables rules to allow for forwarding
 iptables -t nat -A POSTROUTING -o tun+ -j MASQUERADE
