@@ -18,7 +18,7 @@ source ./config.sh
 source ./interfaces.sh
 
 # Install OpenVPN and expect
-apt -y install openvpn easy-rsa expect iptables-persistent
+yes 'yes' | apt install -y openvpn easy-rsa expect iptables-persistent
 
 # Set up the CA directory
 make-cadir $HOME/openvpn-ca
