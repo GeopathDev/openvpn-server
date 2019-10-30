@@ -50,7 +50,7 @@ gunzip -c /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz | t
 
 # Adjust the OpenVPN configuration
 sed -i -r "s/.?tls-auth ta.key 0/tls-auth ta.key 0\nkey-direction 0/" /etc/openvpn/server.conf
-sed -i -r "s/.?cipher AES-128-CBC/cipher AES-128-CBC\nauth SHA256/" /etc/openvpn/server.conf
+sed -i -r "s/.?cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/" /etc/openvpn/server.conf
 sed -i -r "s/.?user nobody/user nobody/" /etc/openvpn/server.conf
 #sed -i "s/.?group nogroup/group nogroup/" /etc/openvpn/server.conf
 sed -i -r "s/.?comp-lzo/compress lzo/" /etc/openvpn/server.conf
