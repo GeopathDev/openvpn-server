@@ -24,6 +24,6 @@ cat ${BASE_CONFIG} \
     <(echo -e '</key>\n<tls-auth>') \
     ${KEY_DIR}/ta.key \
     <(echo -e '</tls-auth>') \
-    > "${OUTPUT_DIR}"/"${ovpn_client_file_name}".ovpn
+    > "${OUTPUT_DIR}"/"${ovpn_client_file_name}"
 
 # sed -i "s/group nogroup/group nobody/" ${OUTPUT_DIR}/${name}.ovpn
