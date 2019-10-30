@@ -49,11 +49,11 @@ cp ca.crt ca.key server.crt server.key ta.key dh2048.pem /etc/openvpn
 gunzip -c /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz | tee /etc/openvpn/server.conf
 
 # Adjust the OpenVPN configuration
-sed -i "s/;tls-auth ta.key 0/tls-auth ta.key 0\nkey-direction 0/" /etc/openvpn/server.conf
-sed -i "s/;cipher AES-128-CBC/cipher AES-128-CBC\nauth SHA256/" /etc/openvpn/server.conf
-sed -i "s/;user nobody/user nobody/" /etc/openvpn/server.conf
-sed -i "s/;group nogroup/group nogroup/" /etc/openvpn/server.conf
-sed -i "s/comp-lzo/compress lzo/" /etc/openvpn/server.conf
+sed -i -r "s/.?tls-auth ta.key 0/tls-auth ta.key 0\nkey-direction 0/" /etc/openvpn/server.conf
+sed -i -r "s/.?cipher AES-128-CBC/cipher AES-128-CBC\nauth SHA256/" /etc/openvpn/server.conf
+sed -i -r "s/.?user nobody/user nobody/" /etc/openvpn/server.conf
+#sed -i "s/.?group nogroup/group nogroup/" /etc/openvpn/server.conf
+sed -i -r "s/.?comp-lzo/compress lzo/" /etc/openvpn/server.conf
 echo -e "\nplugin /usr/lib/openvpn/plugins/openvpn-plugin-auth-pam.so login" >> /etc/openvpn/server.conf
 
 # Allow IP forwarding
@@ -82,13 +82,13 @@ mkdir -p $HOME/client-configs/files
 # Create a base configuration
 cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf $HOME/client-configs/base.conf
 sed -i "s/remote my-server-1 1194/remote ${PUBLIC_IP} 1194/" $HOME/client-configs/base.conf
-sed -i "s/;user nobody/user nobody/" $HOME/client-configs/base.conf
-sed -i "s/;group nogroup/group nogroup/" $HOME/client-configs/base.conf
+sed -i -r "s/.?user nobody/user nobody/" $HOME/client-configs/base.conf
+sed -i -r "s/.?group nogroup/group nogroup/" $HOME/client-configs/base.conf
 sed -i "s/ca ca.crt/#ca ca.crt/" $HOME/client-configs/base.conf
 sed -i "s/cert client.crt/#cert client.crt/" $HOME/client-configs/base.conf
 sed -i "s/key client.key/#key client.key/" $HOME/client-configs/base.conf
 sed -i -r "s/.?comp-lzo/compress lzo/" $HOME/client-configs/base.conf
-sed -i -r "s/;?tls-auth ta.key 1/tls-auth [inline] 1/" $HOME/client-configs/base.conf
+sed -i -r "s/.?tls-auth ta.key 1/tls-auth [inline] 1/" $HOME/client-configs/base.conf
 echo -e "\ncipher AES-128-CBC" >> $HOME/client-configs/base.conf
 echo "auth SHA256" >> $HOME/client-configs/base.conf
 echo "key-direction 1" >> $HOME/client-configs/base.conf
