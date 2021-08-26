@@ -22,6 +22,6 @@ cat ${BASE_CONFIG} \
     <(echo -e '</key>\n<tls-auth>') \
     ${KEY_DIR}/ta.key \
     <(echo -e '</tls-auth>') \
-    > "${OUTPUT_DIR}"/"${ovpn_client_file_name}"
+    > > ${OUTPUT_DIR}/Geopath\ Staging\ VPN.ovpn
 
 # sed -i "s/group nogroup/group nobody/" ${OUTPUT_DIR}/${name}.ovpn
